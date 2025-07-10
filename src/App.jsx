@@ -35,7 +35,7 @@ function App() {
           alt=""
           className="absolute top-0 left-0 w-full h-full object-cover z-0 blur-xs"
         />
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
 
         <div className="relative z-20 flex flex-col items-center h-full text-white">
           <header className="w-[80%] flex gap-4 items-center justify-end pt-20">
