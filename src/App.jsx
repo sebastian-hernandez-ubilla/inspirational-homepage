@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ActivityCard } from "./components/Activity";
 import { NewActivityForm } from "./components/NewActivityForm";
-import { addThought, selectThoughts } from "./features/thoughts/thoughtsSlice";
 import { ThoughtsCards } from "./features/thoughts/ThoughtsCards";
+import { addThought, selectThoughts } from "./features/thoughts/thoughtsSlice";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [formIdea, setFormIdea] = useState("");
@@ -13,7 +13,13 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addThought(formIdea));
+    const newThought = {
+      id: uuidv4(),
+      description: formIdea,
+      isDone: false,
+    };
+
+    dispatch(addThought(newThought));
     setFormIdea("");
   };
 
