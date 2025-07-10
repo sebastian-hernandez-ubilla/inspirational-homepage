@@ -1,15 +1,31 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NewActivityForm } from "./components/NewActivityForm";
-import { Activity } from "./components/Activity";
+import { ThoughtsCards } from "./features/thoughts/ThoughtsCards";
+import { addThought, selectThoughts } from "./features/thoughts/thoughtsSlice";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [formIdea, setFormIdea] = useState("");
-  const [ideas, setIdeas] = useState([]);
+  const ideas = useSelector(selectThoughts);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIdeas([...ideas, formIdea]);
-    setFormIdea("");
+    if (formIdea.trim() > 0) {
+      const newThought = {
+        id: uuidv4(),
+        description: formIdea,
+        isDone: false,
+      };
+
+      dispatch(addThought(newThought));
+      setFormIdea("");
+    }else{
+      setFormIdea("");
+      return;
+    }
   };
 
   const handleChange = (e) => {
@@ -24,8 +40,9 @@ function App() {
           alt=""
           className="absolute top-0 left-0 w-full h-full object-cover z-0 blur-xs"
         />
+        <div className="absolute inset-0 bg-black/40"></div>
 
-        <div className="relative z-10 flex flex-col items-center h-full text-white">
+        <div className="relative z-20 flex flex-col items-center h-full text-white">
           <header className="w-[80%] flex gap-4 items-center justify-end pt-20">
             <div>
               <svg
@@ -47,7 +64,7 @@ function App() {
           </header>
 
           <main className="w-full flex flex-col items-center justify-center gap-10">
-            <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-blue-300">
+            <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-zinc-800/50">
               <h2 className="text-4xl font-bold pl-10 pt-5 pb-4 ">
                 What's on your mind today?
               </h2>
@@ -58,16 +75,12 @@ function App() {
               />
             </section>
 
-            <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-blue-300 px-10 flex gap-8 p-10 flex-wrap">
-              {ideas.map((idea, index) => {
-                return (
-                  <Activity idea={idea} index={index}/>
-                );
-              })}
+            <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-zinc-800/50 px-10 flex gap-8 p-10 flex-wrap">
+              <ThoughtsCards />
             </section>
           </main>
 
-          <footer className="flex items-end text-white h-full pb-2">
+          <footer className="flex items-end text-zinc-300 h-full pb-2">
             <article className="text-center">
               <h3 className="text-xl">
                 "Named must your fear be before banish you can"
