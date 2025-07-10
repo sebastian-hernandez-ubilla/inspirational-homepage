@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { NewActivityForm } from "./components/NewActivityForm";
+import { Activity } from "./components/Activity";
 
 function App() {
   const [formIdea, setFormIdea] = useState("");
@@ -49,26 +51,17 @@ function App() {
               <h2 className="text-4xl font-bold pl-10 pt-5 pb-4 ">
                 What's on your mind today?
               </h2>
-              <form onSubmit={handleSubmit} className="px-10 pb-10">
-                <input
-                  className="outline-none border-b-2 border-white min-w-full text-center text-2xl"
-                  type="text"
-                  name="idea"
-                  value={formIdea}
-                  onChange={handleChange}
-                />
-              </form>
+              <NewActivityForm
+                handleSubmit={handleSubmit}
+                handleChange={handleChange}
+                formIdea={formIdea}
+              />
             </section>
 
             <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-blue-300 px-10 flex gap-8 p-10 flex-wrap">
               {ideas.map((idea, index) => {
                 return (
-                  <div
-                    key={index}
-                    className="border border-red-600 p-5 rounded-2xl bg-red-400/60 shadow-xl/30 hover:bg-blue-500/50"
-                  >
-                    <p>{idea}</p>
-                  </div>
+                  <Activity idea={idea} index={index}/>
                 );
               })}
             </section>
