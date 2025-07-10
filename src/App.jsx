@@ -13,14 +13,19 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newThought = {
-      id: uuidv4(),
-      description: formIdea,
-      isDone: false,
-    };
+    if (formIdea.trim() > 0) {
+      const newThought = {
+        id: uuidv4(),
+        description: formIdea,
+        isDone: false,
+      };
 
-    dispatch(addThought(newThought));
-    setFormIdea("");
+      dispatch(addThought(newThought));
+      setFormIdea("");
+    }else{
+      setFormIdea("");
+      return;
+    }
   };
 
   const handleChange = (e) => {
