@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { NewActivityForm } from "./components/NewActivityForm";
-import { Activity } from "./components/Activity";
 import { useDispatch, useSelector } from "react-redux";
+import { ActivityCard } from "./components/Activity";
+import { NewActivityForm } from "./components/NewActivityForm";
 import { addThought, selectThoughts } from "./features/thoughts/thoughtsSlice";
+import { ThoughtsCards } from "./features/thoughts/ThoughtsCards";
 
 function App() {
   const [formIdea, setFormIdea] = useState("");
   const ideas = useSelector(selectThoughts);
-  console.log(ideas);
 
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ function App() {
           alt=""
           className="absolute top-0 left-0 w-full h-full object-cover z-0 blur-xs"
         />
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
 
         <div className="relative z-20 flex flex-col items-center h-full text-white">
           <header className="w-[80%] flex gap-4 items-center justify-end pt-20">
@@ -65,9 +65,7 @@ function App() {
             </section>
 
             <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-zinc-800/50 px-10 flex gap-8 p-10 flex-wrap">
-              {ideas.map((idea, index) => {
-                return <Activity key={index} idea={idea} />;
-              })}
+              <ThoughtsCards />
             </section>
           </main>
 
