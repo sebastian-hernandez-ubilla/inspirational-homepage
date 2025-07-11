@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import { NewActivityForm } from "./components/NewActivityForm";
 import { ThoughtsCards } from "./features/thoughts/ThoughtsCards";
-import { addThought, selectThoughts } from "./features/thoughts/thoughtsSlice";
-import { v4 as uuidv4 } from "uuid";
-import logo from '/public/cabin.jpg';
+import { addThought } from "./features/thoughts/thoughtsSlice";
+// import logo from "/public/cabin.jpg";
+import { ChangeImageButton } from "./features/images/ChangeImageButton";
+import { selectImage } from "./features/images/imagesSlice";
 
 function App() {
   const [formIdea, setFormIdea] = useState("");
-  const ideas = useSelector(selectThoughts);
+  const background = useSelector(selectImage);
 
   const dispatch = useDispatch();
 
@@ -23,7 +25,7 @@ function App() {
 
       dispatch(addThought(newThought));
       setFormIdea("");
-    }else{
+    } else {
       setFormIdea("");
       return;
     }
@@ -37,11 +39,11 @@ function App() {
     <>
       <div className="relative h-screen w-full">
         <img
-          src={logo}
+          src={background.img}
           alt=""
           className="absolute top-0 left-0 w-full h-full object-cover z-0 blur-xs"
         />
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
 
         <div className="relative z-20 flex flex-col items-center h-full text-white">
           <header className="w-[80%] flex gap-4 items-center justify-end pt-20">
@@ -64,22 +66,32 @@ function App() {
             </div>
           </header>
 
-          <main className="w-full flex flex-col items-center justify-center gap-10">
-            <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-zinc-800/50">
-              <h2 className="text-4xl font-bold pl-10 pt-5 pb-4 ">
-                What's on your mind today?
-              </h2>
-              <NewActivityForm
-                handleSubmit={handleSubmit}
-                handleChange={handleChange}
-                formIdea={formIdea}
-              />
-            </section>
+          <section className="flex items-center justify-between w-full h-screen px-4">
+            <aside>
+              <ChangeImageButton icon={'<'}/>
+            </aside>
 
-            <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-zinc-800/50 px-10 flex gap-8 p-10 flex-wrap">
-              <ThoughtsCards />
-            </section>
-          </main>
+            <main className="w-full flex flex-col items-center justify-center gap-10">
+              <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-zinc-800/50">
+                <h2 className="text-4xl font-bold pl-10 pt-5 pb-4 ">
+                  What's on your mind today?
+                </h2>
+                <NewActivityForm
+                  handleSubmit={handleSubmit}
+                  handleChange={handleChange}
+                  formIdea={formIdea}
+                />
+              </section>
+
+              <section className="w-[80%] rounded-2xl shadow-xl text-white shadow-zinc-800/50 px-10 flex gap-8 p-10 flex-wrap">
+                <ThoughtsCards />
+              </section>
+            </main>
+
+            <aside>
+              <ChangeImageButton icon={'>'}/>
+            </aside>
+          </section>
 
           <footer className="flex items-end text-zinc-300 h-full pb-2">
             <article className="text-center">
