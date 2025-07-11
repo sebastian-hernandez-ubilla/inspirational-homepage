@@ -4,6 +4,7 @@ import { NewActivityForm } from "./components/NewActivityForm";
 import { ThoughtsCards } from "./features/thoughts/ThoughtsCards";
 import { addThought, selectThoughts } from "./features/thoughts/thoughtsSlice";
 import { v4 as uuidv4 } from "uuid";
+import logo from '/public/cabin.jpg';
 
 function App() {
   const [formIdea, setFormIdea] = useState("");
@@ -13,7 +14,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formIdea.trim() > 0) {
+    if (formIdea.trim().length > 0) {
       const newThought = {
         id: uuidv4(),
         description: formIdea,
@@ -36,7 +37,7 @@ function App() {
     <>
       <div className="relative h-screen w-full">
         <img
-          src="/src/assets/cabin.jpg"
+          src={logo}
           alt=""
           className="absolute top-0 left-0 w-full h-full object-cover z-0 blur-xs"
         />
