@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const fetchQuote = createAsyncThunk("quotes/fetchQuote", async () => {
   const response = await axios.get(
-    "http://api.quotable.io/quotes/random?maxLength=150"
+    "https://api.quotable.io/quotes/random?maxLength=150"
   );
   return response.data;
 });
