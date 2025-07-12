@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import { NewActivityForm } from "./components/NewActivityForm";
 import { ThoughtsCards } from "./features/thoughts/ThoughtsCards";
 import { addThought } from "./features/thoughts/thoughtsSlice";
-// import logo from "/public/cabin.jpg";
 import { ChangeImageButton } from "./features/images/ChangeImageButton";
 import { selectImage } from "./features/images/imagesSlice";
 import { Quote } from "./features/quotes/Quote";
+import { WeatherStatus } from "./features/weather/WeatherStatus";
 
 function App() {
   const [formIdea, setFormIdea] = useState("");
@@ -48,19 +48,7 @@ function App() {
 
         <div className="relative z-20 flex flex-col items-center text-white min-h-screen">
           <header className="w-[90%] max-w-7xl flex flex-col sm:flex-row gap-4 items-center justify-end pt-10 sm:pt-20">
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                className="fill-white w-10 h-10 sm:w-12 sm:h-12"
-              >
-                <path d="M19.62 11.11C19.19 7.12 15.94 4 12 4 8.95 4 6.31 5.88 5.13 8.82 2.77 9.53 1 11.85 1 14.33 1 17.45 3.44 20 6.44 20h12.22c2.39 0 4.33-2.02 4.33-4.5 0-2.14-1.45-3.94-3.38-4.39Z"></path>
-              </svg>
-            </div>
-            <div className="text-xl font-semibold text-center sm:text-left">
-              <p>64.4°</p>
-              <p>Overcast clouds</p>
-            </div>
+            <WeatherStatus/>
           </header>
 
           <section className="flex flex-col md:flex-row items-center justify-between w-full px-4 py-6 flex-1 gap-6">
